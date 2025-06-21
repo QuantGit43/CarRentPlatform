@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarRentPlatform.Configurations
 {
-    public class RentConfiguration : IEntityTypeConfiguration<Rent>
+    public class ReviewConfiguration : IEntityTypeConfiguration<Rent>
     {
         public void Configure(EntityTypeBuilder<Rent> builder)
         {
@@ -16,8 +16,8 @@ namespace CarRentPlatform.Configurations
             // Зв'язок з автомобілем (Rent -> Car)
             builder.HasOne(r => r.Car)
                    .WithMany(c => c.Rents)
-                   .HasForeignKey(r => r.CarId)
-                   .OnDelete(DeleteBehavior.Restrict); // Забороняємо видаляти авто, якщо є історія оренд
+                   .HasForeignKey(r => r.CarId);
+ // Забороняємо видаляти авто, якщо є історія оренд
 
             // Зв'язок з користувачем (Rent -> User) вже налаштовано у UserConfiguration,
             // але для повноти його можна залишити і тут. EF Core обробить це коректно.

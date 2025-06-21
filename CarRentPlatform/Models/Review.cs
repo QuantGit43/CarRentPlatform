@@ -2,16 +2,17 @@
 {
     public class Review
     {
-        public Guid Id { get; set; }
-        public User? sender { get; set; }
-        public User? receiver { get; set; }
+        public int Id { get; set; }
+        public double Rating { get; set; }
+        public string? Comment { get; set; }
+        public DateTime Date { get; set; }
 
-        //Sender
-        public Guid? SenderId { get; set; }
-        public User? Sender { get; set; }
+        // Відправник відгуку
+        public int SenderId { get; set; }
+        public User Sender { get; set; }
 
-        //Receiver
-        public Guid? ReceiverId {  get; set; }
-        public User? Receiver { get; set; }
+        // Отримувач відгуку
+        public int ReceiverId { get; set; }
+        public User Receiver { get; set; }
     }
 }
