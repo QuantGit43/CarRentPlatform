@@ -1,0 +1,6 @@
+@CarRentPlatformAPI_HostAddress = http://localhost:5267
+
+GET {{CarRentPlatformAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

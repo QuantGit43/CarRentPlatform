@@ -15,7 +15,7 @@ namespace CarRentPlatform.Configurations
             // Зв'язок з орендами (User -> Rents)
             builder.HasMany(u => u.Rents)
                    .WithOne(r => r.User)
-                   .HasForeignKey(r => r.User.Id)
+                   .HasForeignKey(r => r.UserId)
                    .OnDelete(DeleteBehavior.Restrict);
 
             // Зв'язок з платежами (User -> Payments)
