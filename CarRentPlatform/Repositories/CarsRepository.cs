@@ -9,7 +9,7 @@ namespace CarRentPlatform.Repositories
 
         public CarsRepository(CarRentDBContext dbContext )
         {
-            dbContext = _dbContext;
+            _dbContext = dbContext;
         }
         
         public async Task<List<Car>> Get()
@@ -27,13 +27,9 @@ namespace CarRentPlatform.Repositories
                 .FirstOrDefaultAsync(c => c.Id == Id);  
         }
 
-        public async Task<List<Car>> GetByFilter(string? brand, string? model, int? yearFrom, int? yearTo)
+        public async Task<List<Car>> GetByFilter(string? model, int? yearFrom, int? yearTo)
         {
             var query = _dbContext.Cars.AsNoTracking();
-            if (!string.IsNullOrEmpty(brand))
-            {
-                query = query.Where(c => c.Mark.Contains(brand));
-            }
             if (!string.IsNullOrEmpty(model))
             {
                 query = query.Where(c => c.Model.Contains(model));
@@ -59,17 +55,45 @@ namespace CarRentPlatform.Repositories
                     .ToListAsync();
         }
 
-        public async Task<Car> Add(Car car)
+        public async Task Add(int id, string model, int year, string bodyType, string fuelType, 
+            string? photo, string number, string status)
         {
-
-            _dbContext.Cars.Add(car);
-            await _dbContext.SaveChangesAsync();
-            return car;
+            var newCar = new Car
+            {
+                Id = id,
+                Model = model,
+                ProdYear = year,
+                BodyType = bodyType,
+                FuelType = fuelType,
+                Photo = photo,
+                Number = number,
+                Status = status,
+            };
+                await _dbContext.Cars.AddAsync(newCar);
+                await _dbContext.SaveChangesAsync();
         }
 
-        //public async Task<Car?> Update(Car car)
-        //{
-        //    _dbContext.Cars.Update(car);
-        //}
+        public async Task Update(int id, string model, int year, string bodyType, string fuelType, 
+            string? photo, string number, string status)
+        {
+            await _dbContext.Cars
+                .Where(c=> c.Id == id)
+                .ExecuteUpdateAsync(c =>
+                 c.SetProperty(c => c.Model, model).
+                 SetProperty (c=> c.ProdYear, year).
+                 SetProperty(c=> c.BodyType, bodyType).
+                 SetProperty(c => c.FuelType, fuelType).
+                 SetProperty(c => c.Photo, photo).
+                 SetProperty(c => c.Number, number).
+                 SetProperty(c=> c.Status, status));
+        }
+
+        public async Task Delete(int id)
+        {
+            await _dbContext.Cars.
+                Where(c => c.Id == id).
+                ExecuteDeleteAsync();
+        }
+
     }
 }

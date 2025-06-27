@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using CarRentPlatform.Configurations;
 using CarRentPlatform.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 namespace CarRentPlatform
 {
