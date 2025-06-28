@@ -1,4 +1,3 @@
-using CarRentPlatform.Configurations;
 using CarRentPlatform;
 using Microsoft.EntityFrameworkCore;
 

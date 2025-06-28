@@ -97,6 +97,5 @@ namespace CarRentPlatform.Repositories
                 Where(u => u.Id == id).
                 ExecuteDeleteAsync();
         }
-
     }
 }
